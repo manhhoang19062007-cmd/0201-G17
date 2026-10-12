@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CỬA HÀNG KFC CÓ MẶT TẠI VIỆT NAM</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+
+        <div class="header-container">
+
+            <!-- LOGO -->
+            <div class="logo">
+                <h1>KFC</h1>
+            </div>
+
+            <!-- MENU -->
+            <nav class="menu">
+                <a href="#">Trang chủ</a>
+                <a href="#san-pham">Sản phẩm</a>
+                <a href="#" id="cart-toggle-link" onclick="toggleCart(); return false;">Giỏ hàng</a>
+                <a href="#">Liên lạc</a>
+            </nav>
+
+            <!-- GIO HANG ICON -->
+            <div class="cart-icon" id="cart-icon" onclick="toggleCart()">
+                🛒
+                <span class="cart-count" id="cart-count">0</span>
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- BANNER -->
+    <section class="banner">
+
+        <div class="banner-content">
+
+            <h1>KFC VIỆT NAM</h1>
+
+            <p>
+                Hương vị thơm ngon – Ăn là ghiền
+            </p>
+
+            <button onclick="document.getElementById('san-pham').scrollIntoView({behavior:'smooth'})">
+                Xem sản phẩm
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- PHAN CONTAINER -->
+    <main class="container">
+
+        <!-- TIM KIEM SAN PHAM -->
+        <section class="search-section">
+            <h2>Tìm kiếm sản phẩm</h2>
+
+            <form class="search-form" id="search-form">
+                <input type="text"
+                       id="search-input"
+                       placeholder="Nhập từ khóa...">
+                <button type="submit">Tìm kiếm</button>
+            </form>
+            <p class="search-result-msg" id="search-result-msg"></p>
+        </section>
+
+        <!-- PHAN DANH MUC SAN PHAM -->
+        <nav class="category-section" id="danh-muc">
+            <h2>Danh mục sản phẩm</h2>
+
+            <ul class="category-menu">
+                <li><a href="#san-pham" data-category="all" class="active">Tất cả</a></li>
+                <li><a href="#san-pham" data-category="ga">Gà rán</a></li>
+                <li><a href="#san-pham" data-category="burger">Burger</a></li>
+                <li><a href="#san-pham" data-category="combo">Combo</a></li>
+                <li><a href="#san-pham" data-category="mon-an-kem">Phụ kiện</a></li>
+            </ul>
+        </nav>
+
+        <!-- SAN PHAM NOI BAT -->
+        <section class="product-section" id="noi-bat">
+            <h2>Sản phẩm nổi bật</h2>
+
+            <div class="featured-grid">
+                <article class="featured-card">
+                    <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=700&q=80" alt="Gà rán">
+                    <h3>Gà rán</h3>
+                    <p>Mô tả sản phẩm</p>
+                    <strong>49.000đ</strong>
+                    <button class="btn-add-cart" onclick="addToCart('Gà rán', 49000, 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=700&q=80')">Thêm vào giỏ</button>
+                </article>
+
+                <article class="featured-card">
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=80" alt="Burger">
+                    <h3>Burger gà</h3>
+                    <p>Mô tả sản phẩm</p>
+                    <strong>45.000đ</strong>
+                    <button class="btn-add-cart" onclick="addToCart('Burger gà', 45000, 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=80')">Thêm vào giỏ</button>
+                </article>
+
+                <article class="featured-card">
+                    <img src="https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=700&q=80" alt="Combo gà">
+                    <h3>Combo gà</h3>
+                    <p>Mô tả sản phẩm</p>
+                    <strong>99.000đ</strong>
+                    <button class="btn-add-cart" onclick="addToCart('Combo gà', 99000, 'https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=700&q=80')">Thêm vào giỏ</button>
+                </article>
+            </div>
+        </section>
+
+        <!-- DANH SACH SAN PHAM -->
+        <section class="product-section" id="san-pham">
+            <h2>Danh sách sản phẩm</h2>
+
+            <!-- Thong bao khong tim thay -->
+            <p class="no-result" id="no-result" style="display:none;">Không tìm thấy sản phẩm phù hợp.</p>
+
+            <div class="product-grid" id="product-grid">
+                <article class="product-card" data-category="ga" data-name="Gà rán" data-price="49000">
+                    <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=700&q=80" alt="Gà rán">
+                    <div class="product-info">
+                        <h3>Gà rán</h3>
+                        <p>Mô tả sản phẩm</p>
+                        <strong>49.000đ</strong>
+                        <button class="btn-add-cart" onclick="addToCart('Gà rán', 49000, 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=700&q=80')">Thêm vào giỏ</button>
+                    </div>
+                </article>
+
+                <article class="product-card" data-category="burger" data-name="Burger gà" data-price="45000">
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=80" alt="Burger">
+                    <div class="product-info">
+                        <h3>Burger gà</h3>
+                        <p>Mô tả sản phẩm</p>
+                        <strong>45.000đ</strong>
+                        <button class="btn-add-cart" onclick="addToCart('Burger gà', 45000, 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=80')">Thêm vào giỏ</button>
+                    </div>
+                </article>
+
+                <article class="product-card" data-category="combo" data-name="Combo gà" data-price="99000">
+                    <img src="https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=700&q=80" alt="Combo gà">
+                    <div class="product-info">
+                        <h3>Combo gà</h3>
+                        <p>Mô tả sản phẩm</p>
+                        <strong>99.000đ</strong>
+                        <button class="btn-add-cart" onclick="addToCart('Combo gà', 99000, 'https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=700&q=80')">Thêm vào giỏ</button>
+                    </div>
+                </article>
+
+                <article class="product-card" data-category="combo" data-name="Combo Burger Gà Yo & Gà Rán" data-price="129000">
+                    <img src="https://static.kfcvietnam.com.vn/images/items/lg/EC.CBO-B.GaYo-COB_.jpg?v=4Y6aKg" alt="Combo Burger Gà Yo & Gà Rán">
+                    <div class="product-info">
+                        <h3>Combo Burger Gà Yo & Gà Rán</h3>
+                        <p>2 miếng gà rán + Burger Gà Yo + khoai tây chiên (vừa) + Pepsi</p>
+                        <strong>129.000đ</strong>
+                        <button class="btn-add-cart" onclick="addToCart('Combo Burger Gà Yo & Gà Rán', 129000, 'https://static.kfcvietnam.com.vn/images/items/lg/EC.CBO-B.GaYo-COB_.jpg?v=4Y6aKg')">Thêm vào giỏ</button>
+                    </div>
+                </article>
+
+                <article class="product-card" data-category="combo" data-name="Combo Cơm Gà Nanban Solo" data-price="46000">
+                    <img src="https://static.kfcvietnam.com.vn/images/items/lg/EC.CBO-RICE-NANBAN.jpg?v=4Y6aKg" alt="Combo Cơm Gà Nanban Solo">
+                    <div class="product-info">
+                        <h3>Combo Cơm Gà Nanban Solo</h3>
+                        <p>1 cơm gà Nanban + Pepsi (tiểu chuẩn)</p>
+                        <strong>46.000đ</strong>
+                        <button class="btn-add-cart" onclick="addToCart('Combo Cơm Gà Nanban Solo', 46000, 'https://static.kfcvietnam.com.vn/images/items/lg/EC.CBO-RICE-NANBAN.jpg?v=4Y6aKg')">Thêm vào giỏ</button>
+                    </div>
+                </article>
+
+                <article class="product-card" data-category="burger" data-name="Combo Burger Zinger" data-price="79000">
+                    <img src="https://static.kfcvietnam.com.vn/images/items/lg/D-B.ZINGER-FF.jpg?v=4Y6aKg" alt="Combo Burger Zinger">
+                    <div class="product-info">
+                        <h3>Combo Burger Zinger</h3>
+                        <p>1 Burger Zinger + khoai tây chiên (vừa) + Pepsi (tiêu chuẩn)</p>
+                        <strong>79.000đ</strong>
+                        <button class="btn-add-cart" onclick="addToCart('Combo Burger Zinger', 79000, 'https://static.kfcvietnam.com.vn/images/items/lg/D-B.ZINGER-FF.jpg?v=4Y6aKg')">Thêm vào giỏ</button>
+                    </div>
+                </article>
+
+                <article class="product-card" data-category="combo" data-name="Combo Cùng Vui" data-price="199000">
+                    <img src="https://static.kfcvietnam.com.vn/images/items/lg/cungvui-new.jpg?v=4Y6aKg" alt="Combo Cùng Vui">
+                    <div class="product-info">
+                        <h3>Combo Cùng Vui</h3>
+                        <p>Combo 6 miếng gà, tặng kèm 3 lon Pepsi</p>
+                        <strong>199.000đ</strong>
+                        <button class="btn-add-cart" onclick="addToCart('Combo Cùng Vui', 199000, 'https://static.kfcvietnam.com.vn/images/items/lg/cungvui-new.jpg?v=4Y6aKg')">Thêm vào giỏ</button>
+                    </div>
+                </article>
+
+                <article class="product-card" data-category="combo" data-name="Combo Hai Mình Chill" data-price="146000">
+                    <img src="https://static.kfcvietnam.com.vn/images/items/lg/EC.CBO-2-Pasta-COB.jpg?v=4Y6aKg" alt="Combo Hai Mình Chill">
+                    <div class="product-info">
+                        <h3>Combo Hai Mình Chill</h3>
+                        <p>2 Mì ý xúc xích + 2 Miếng gà rán + 1 Khoai tây chiên (vừa) + 2 Ly Pepsi (tiêu chuẩn)</p>
+                        <strong>146.000đ</strong>
+                        <button class="btn-add-cart" onclick="addToCart('Combo Hai Mình Chill', 146000, 'https://static.kfcvietnam.com.vn/images/items/lg/EC.CBO-2-Pasta-COB.jpg?v=4Y6aKg')">Thêm vào giỏ</button>
+                    </div>
+                </article>
+
+                <article class="product-card" data-category="mon-an-kem" data-name="Combo Mỳ Ý Solo" data-price="71000">
+                    <img src="https://static.kfcvietnam.com.vn/images/items/lg/EC.CBO-1-Pasta-COB.jpg?v=4Y6aKg" alt="Combo Mỳ Ý Solo">
+                    <div class="product-info">
+                        <h3>Combo Mỳ Ý Solo</h3>
+                        <p>1 Mì ý gà rán + 1 Ly Pepsi (tiêu chuẩn)</p>
+                        <strong>71.000đ</strong>
+                        <button class="btn-add-cart" onclick="addToCart('Combo Mỳ Ý Solo', 71000, 'https://static.kfcvietnam.com.vn/images/items/lg/EC.CBO-1-Pasta-COB.jpg?v=4Y6aKg')">Thêm vào giỏ</button>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- CART OVERLAY -->
+    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+
+    <!-- CART SIDEBAR -->
+    <aside class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>🛒 Giỏ hàng</h2>
+            <button class="cart-close" onclick="toggleCart()">✕</button>
+        </div>
+
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items se duoc them bang JS -->
+            <p class="cart-empty" id="cart-empty">Giỏ hàng trống.</p>
+        </div>
+
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Tổng cộng:</span>
+                <strong id="cart-total-price">0đ</strong>
+            </div>
+            <button class="btn-checkout" onclick="checkout()">Đặt hàng</button>
+            <button class="btn-clear-cart" onclick="clearCart()">Xóa tất cả</button>
+        </div>
+    </aside>
+
+    <!-- Toast thong bao -->
+    <div class="toast" id="toast"></div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
